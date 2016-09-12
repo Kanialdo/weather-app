@@ -2,14 +2,14 @@ package pl.krystiankaniowski.weatherapp.data;
 
 import android.util.Log;
 
-import java.io.IOException;
-
 import pl.krystiankaniowski.weatherapp.data.openweathermap.OpenWeatherMapService;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class WeatherDataManager {
 
@@ -22,6 +22,7 @@ public class WeatherDataManager {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(OpenWeatherMapService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         service = retrofit.create(OpenWeatherMapService.class);
@@ -30,21 +31,25 @@ public class WeatherDataManager {
 
     public void getWeather(final String city) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Call<WeatherData> call = service.getCurrentData(city, OpenWeatherMapService.API_KEY);
-                    Log.v(TAG, "request: " + call.request().url());
-                    Response<WeatherData> response = call.execute();
-                    Log.v(TAG, "response: " + response.body());
-                    Log.v(TAG, "Temperature: " + response.body().getMain().getTemp());
-                } catch (IOException e) {
+        service.getCurrentData(city, OpenWeatherMapService.API_KEY)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<WeatherData>() {
+                    @Override
+                    public final void onCompleted() {
+                        // do nothing
+                    }
 
-                }
-            }
-        }).start();
+                    @Override
+                    public final void onError(Throwable e) {
+                        Log.e(TAG, e.getMessage());
+                    }
 
+                    @Override
+                    public final void onNext(WeatherData response) {
+                        Log.v(TAG, "Temperature: " + response.getMain().getTemp());
+                    }
+                });
     }
 
 }

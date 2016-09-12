@@ -1,9 +1,9 @@
 package pl.krystiankaniowski.weatherapp.data.openweathermap;
 
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface OpenWeatherMapService {
 
@@ -12,6 +12,6 @@ public interface OpenWeatherMapService {
     String API_KEY = "dacd3a49be6efee4c375a8465e244d69";
 
     @GET("weather")
-    Call<WeatherData> getCurrentData(@Query("q") String city, @Query("APPID") String api);
+    Observable<WeatherData> getCurrentData(@Query("q") String city, @Query("APPID") String api);
 
 }
