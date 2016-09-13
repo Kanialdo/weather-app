@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 
@@ -41,7 +42,8 @@ public class SearchFragment extends Fragment {
 
     @OnClick(R.id.fragment_search_b_search)
     void search() {
-        new WeatherDataManager().getWeather(searchInput.getText().toString());
+        new WeatherDataManager().getWeather((MainActivity) getActivity(), searchInput.getText().toString())
+        ;
     }
 
 }
