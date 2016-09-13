@@ -2,10 +2,11 @@ package pl.krystiankaniowski.weatherapp.data;
 
 import android.util.Log;
 
-import pl.krystiankaniowski.weatherapp.MainActivity;
+import org.greenrobot.eventbus.EventBus;
+
 import pl.krystiankaniowski.weatherapp.data.openweathermap.OpenWeatherMapService;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
-import pl.krystiankaniowski.weatherapp.view.WeatherDetailsFragment;
+import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,7 +32,7 @@ public class WeatherDataManager {
 
     }
 
-    public void getWeather(final MainActivity mainActivity, final String city) {
+    public void getWeather(final String city) {
 
         service.getCurrentData(city, OpenWeatherMapService.API_KEY)
                 .subscribeOn(Schedulers.newThread())
@@ -49,7 +50,7 @@ public class WeatherDataManager {
 
                     @Override
                     public final void onNext(WeatherData response) {
-                        mainActivity.switchContent(WeatherDetailsFragment.newInstance(city, response.getMain().getTemp()));
+                        EventBus.getDefault().post(new WeatherMessage(city, response.getMain().getTemp()));
                     }
                 });
 

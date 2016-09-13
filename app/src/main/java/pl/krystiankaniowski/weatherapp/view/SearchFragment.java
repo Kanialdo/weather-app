@@ -4,7 +4,6 @@ import android.widget.EditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
@@ -23,7 +22,7 @@ public class SearchFragment extends BaseFragment {
 
     @OnClick(R.id.fragment_search_b_search)
     void search() {
-        new WeatherDataManager().getWeather((MainActivity) getActivity(), searchInput.getText().toString());
+        new WeatherDataManager().getWeather(searchInput.getText().toString());
     }
 
     @Override
