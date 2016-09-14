@@ -22,7 +22,7 @@ public class SearchFragment extends BaseFragment {
 
     @OnClick(R.id.fragment_search_b_search)
     void search() {
-        new WeatherDataManager().getWeather(searchInput.getText().toString());
+        new WeatherDataManager().doWeatherRequest(searchInput.getText().toString());
     }
 
     @Override

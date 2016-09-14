@@ -32,7 +32,7 @@ public class WeatherDataManager {
 
     }
 
-    public void getWeather(final String city) {
+    public void doWeatherRequest(final String city) {
 
         service.getCurrentData(city, OpenWeatherMapService.API_KEY)
                 .subscribeOn(Schedulers.newThread())
@@ -49,8 +49,8 @@ public class WeatherDataManager {
                     }
 
                     @Override
-                    public final void onNext(WeatherData response) {
-                        EventBus.getDefault().post(new WeatherMessage(city, response.getMain().getTemp()));
+                    public final void onNext(WeatherData data) {
+                        EventBus.getDefault().post(new WeatherMessage(city, data.getMain().getTemperature()));
                     }
                 });
 
