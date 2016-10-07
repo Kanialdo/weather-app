@@ -15,7 +15,7 @@
     <!-- The navigation drawer -->
 
     <include
-        android:id="@+id/left_drawer"
+        android:id="@+id/drawer"
         layout="@layout/navigation_menu"
         android:layout_width="240dp"
         android:layout_height="match_parent"

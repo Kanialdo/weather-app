@@ -12,13 +12,18 @@ import org.greenrobot.eventbus.ThreadMode;
 import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
 import pl.krystiankaniowski.weatherapp.view.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.WeatherDetailsFragment;
+import pl.krystiankaniowski.weatherapp.view.navigation.NavigationMenu;
 
 public class MainActivity extends AppCompatActivity {
+
+    private NavigationMenu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        menu = new NavigationMenu(findViewById(R.id.drawer));
 
         switchContent(new SearchFragment());
 
