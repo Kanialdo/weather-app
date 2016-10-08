@@ -17,23 +17,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        menu = new NavigationMenu(findViewById(R.id.drawer));
+        menu = new NavigationMenu(this, findViewById(R.id.drawer));
 
         switchContent(new SearchFragment());
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        EventBus.getDefault().register(this);
-//    }
+    //    @Override
+    //    protected void onStart() {
+    //        super.onStart();
+    //        EventBus.getDefault().register(this);
+    //    }
 
-//    @Override
-//    protected void onStop() {
-//        EventBus.getDefault().unregister(this);
-//        super.onStop();
-//    }
+    //    @Override
+    //    protected void onStop() {
+    //        EventBus.getDefault().unregister(this);
+    //        super.onStop();
+    //    }
 
     public void switchContent(Fragment fragment) {
 

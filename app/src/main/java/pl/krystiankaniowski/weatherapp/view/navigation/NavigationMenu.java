@@ -3,17 +3,19 @@ package pl.krystiankaniowski.weatherapp.view.navigation;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElemenetType;
+import pl.krystiankaniowski.weatherapp.view.WeatherDetailsFragment;
+import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationAdapter;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.NavigationItem;
 
@@ -26,20 +28,40 @@ public class NavigationMenu {
 
     UniversalRecyclerAdapter<NavigationItem> adapter;
 
-    public NavigationMenu(final View rootView) {
+    public NavigationMenu(final MainActivity mainActivity, final View rootView) {
 
         ButterKnife.bind(this, rootView);
 
         items = new ArrayList<>();
 
-        items.add(new NavigationItem("First position", new Runnable() {
+        items.add(new NavigationItem("Example city", new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(rootView.getContext(), "Clicked First position", Toast.LENGTH_SHORT).show();
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance("Lublin", 300));
             }
         }));
-        items.add(new NavigationItem("Second position"));
-        items.add(new NavigationItem("Third position"));
+        items.add(new NavigationItem("Example city 2", new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance("Warsaw", 300));
+            }
+        }));
+        items.add(new NavigationItem("Add city", new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.switchContent(new SearchFragment());
+            }
+        }));
+        items.add(new NavigationItem("Settings", new Runnable() {
+            @Override
+            public void run() {
+            }
+        }));
+        items.add(new NavigationItem("About app", new Runnable() {
+            @Override
+            public void run() {
+            }
+        }));
 
         adapter = new UniversalRecyclerAdapter.Builder<>(NavigationItem.class)
                 .registerDelegatedAdapter(ViewElemenetType.NAVIGATION_ITEM.ordinal(), new DelegatedNavigationAdapter(
