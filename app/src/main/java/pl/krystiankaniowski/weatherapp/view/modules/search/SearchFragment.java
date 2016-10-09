@@ -38,7 +38,13 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        presenter.unsubscribe();
+        super.onPause();
     }
 
     @OnClick(R.id.fragment_search_b_search)

@@ -1,4 +1,4 @@
-package pl.krystiankaniowski.weatherapp.view;
+package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
 import android.os.Bundle;
 import android.view.View;
