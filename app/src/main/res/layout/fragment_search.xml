@@ -4,16 +4,38 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/fragment_search_et_input"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_city_name"/>
+        android:layout_gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#dddddd"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/fragment_search_b_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"/>
+        <EditText
+            android:id="@+id/fragment_search_et_input"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:hint="@string/enter_city_name"/>
+
+        <Button
+            android:id="@+id/fragment_search_b_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

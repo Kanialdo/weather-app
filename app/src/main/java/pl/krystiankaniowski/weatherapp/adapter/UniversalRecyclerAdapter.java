@@ -13,7 +13,7 @@ public class UniversalRecyclerAdapter<Type extends ViewElement> extends Recycler
     private static final String TAG = UniversalRecyclerAdapter.class.getSimpleName();
 
     private SparseArrayCompat<UniversalDelegatedAdapter<Type>> delegatedAdapters = new SparseArrayCompat<>();
-    private List<Type> items;
+    private List<? extends Type> items;
 
     public UniversalRecyclerAdapter(List<Type> data) {
         items = data;
@@ -60,11 +60,11 @@ public class UniversalRecyclerAdapter<Type extends ViewElement> extends Recycler
         return items.size();
     }
 
-    public void setData(List<Type> data) {
+    public void setData(List<? extends Type> data) {
         items = data;
     }
 
-    public List<Type> getData() {
+    public List<? extends Type> getData() {
         return items;
     }
 
