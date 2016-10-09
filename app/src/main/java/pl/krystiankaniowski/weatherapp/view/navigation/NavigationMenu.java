@@ -15,7 +15,7 @@ import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElemenetType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
-import pl.krystiankaniowski.weatherapp.view.WeatherDetailsFragment;
+import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationAdapter;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationCityAdapter;

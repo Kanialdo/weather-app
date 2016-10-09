@@ -1,6 +1,10 @@
 package pl.krystiankaniowski.weatherapp.view.modules.search;
 
-import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
+import android.content.Context;
+
+import java.util.List;
+
+import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.mvp.BasePresenter;
 import pl.krystiankaniowski.weatherapp.mvp.BaseView;
 
@@ -12,15 +16,13 @@ public interface SearchContract {
 
     interface View extends BaseView<Presenter> {
 
-        void onWeatherResponse(WeatherMessage event);
-
-        void onWeatherRequestError();
+        void onCitiesResponse(List<City> matchingCities);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void requestWeather(String city);
+        void requestMatchingCities(Context context, String city);
 
     }
 
