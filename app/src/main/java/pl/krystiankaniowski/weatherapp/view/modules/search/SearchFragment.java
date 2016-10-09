@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
@@ -19,6 +20,7 @@ import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.adapter.DelegatedNavigationCityAdapter;
+import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 
 public class SearchFragment extends BaseFragment implements SearchContract.View {
 
@@ -50,6 +52,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                         new OnClickListener<City>() {
                             @Override
                             public void onClick(City city) {
+                                ((MainActivity) getActivity()).switchContent(WeatherDetailsFragment.newInstance(city.getId()));
                             }
                         }))
                 .build();

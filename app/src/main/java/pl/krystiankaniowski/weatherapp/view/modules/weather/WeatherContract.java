@@ -1,6 +1,6 @@
 package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
-import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
+import pl.krystiankaniowski.weatherapp.data.openweathermap.model.Weather;
 import pl.krystiankaniowski.weatherapp.mvp.BasePresenter;
 import pl.krystiankaniowski.weatherapp.mvp.BaseView;
 
@@ -12,15 +12,15 @@ public interface WeatherContract {
 
     interface View extends BaseView<Presenter> {
 
-        void onWeatherResponse(WeatherMessage event);
+        void setWeatherDetails(Weather weather);
 
-        void onWeatherRequestError();
+        void setError(String error);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void requestWeather(String city);
+        void requestWeather(int cityId);
 
     }
 

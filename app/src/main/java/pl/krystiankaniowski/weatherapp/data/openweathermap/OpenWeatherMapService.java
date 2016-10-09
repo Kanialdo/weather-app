@@ -12,6 +12,6 @@ public interface OpenWeatherMapService {
     String API_KEY = "dacd3a49be6efee4c375a8465e244d69";
 
     @GET("weather")
-    Observable<WeatherData> getCurrentData(@Query("q") String city, @Query("APPID") String api);
+    Observable<WeatherData> getCurrentData(@Query("id") int cityId, @Query("APPID") String api);
 
 }

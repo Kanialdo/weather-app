@@ -40,13 +40,13 @@ public class NavigationMenu {
         items.add(new NavigationCityItem("Example city", new Runnable() {
             @Override
             public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance("Lublin", 300));
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance(1));
             }
         }));
         items.add(new NavigationCityItem("Example city 2", new Runnable() {
             @Override
             public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance("Warsaw", 300));
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance(2));
             }
         }));
         items.add(new NavigationItem("Add city", android.R.drawable.ic_menu_add, new Runnable() {

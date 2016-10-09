@@ -32,9 +32,9 @@ public class WeatherDataManager {
 
     }
 
-    public void doWeatherRequest(final String city) {
+    public void doWeatherRequest(final int cityId) {
 
-        service.getCurrentData(city, OpenWeatherMapService.API_KEY)
+        service.getCurrentData(cityId, OpenWeatherMapService.API_KEY)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<WeatherData>() {
@@ -50,7 +50,7 @@ public class WeatherDataManager {
 
                     @Override
                     public final void onNext(WeatherData data) {
-                        EventBus.getDefault().post(new WeatherMessage(city, data.getMain().getTemperature()));
+                        EventBus.getDefault().post(new WeatherMessage("", data.getMain().getTemperature()));
                     }
                 });
 
