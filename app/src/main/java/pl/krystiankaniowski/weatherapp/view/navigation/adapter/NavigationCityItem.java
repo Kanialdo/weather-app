@@ -3,15 +3,17 @@ package pl.krystiankaniowski.weatherapp.view.navigation.adapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElemenetType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 
-public class NavigationItem implements ViewElement {
+/**
+ * Created by kryst on 08.10.2016.
+ */
+
+public class NavigationCityItem implements ViewElement {
 
     private String name;
-    private int iconId;
     private Runnable runnable;
 
-    public NavigationItem(String name, int iconId, Runnable runnable) {
+    public NavigationCityItem(String name, Runnable runnable) {
         this.name = name;
-        this.iconId = iconId;
         this.runnable = runnable;
     }
 
@@ -19,11 +21,9 @@ public class NavigationItem implements ViewElement {
 
     public Runnable getRunnable() { return runnable; }
 
-    public int getIconId() { return iconId; }
-
     @Override
     public int getViewType() {
-        return ViewElemenetType.NAVIGATION_ITEM.ordinal();
+        return ViewElemenetType.NAVIGATION_CITY_ITEM.ordinal();
     }
 
 }

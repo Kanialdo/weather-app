@@ -72,12 +72,12 @@ public class UniversalRecyclerAdapter<Type extends ViewElement> extends Recycler
 
         private UniversalRecyclerAdapter<Type> adapter;
 
-        public Builder(Class<Type> type) {
+        public Builder() {
             adapter = new UniversalRecyclerAdapter<>(new ArrayList<Type>());
         }
 
-        public Builder<Type> registerDelegatedAdapter(int typeId, UniversalDelegatedAdapter<Type> delegatedAdapter) {
-            this.adapter.registerDelegatedAdapter(typeId, delegatedAdapter);
+        public Builder<Type> registerDelegatedAdapter(int typeId, UniversalDelegatedAdapter<? extends Type> delegatedAdapter) {
+            this.adapter.registerDelegatedAdapter(typeId, (UniversalDelegatedAdapter<Type>) delegatedAdapter);
             return this;
         }
 

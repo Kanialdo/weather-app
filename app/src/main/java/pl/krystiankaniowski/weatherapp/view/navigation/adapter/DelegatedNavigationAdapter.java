@@ -27,7 +27,7 @@ public class DelegatedNavigationAdapter implements UniversalDelegatedAdapter<Nav
 
     @Override
     public void onBindViewHolder(UniversalViewHolder<NavigationItem> viewHolder, NavigationItem item) {
-        ((NavigationViewHolder) viewHolder).bind(item, listener);
+        ((NavigationViewHolder) viewHolder).bind((NavigationItem) item, listener);
     }
 
     @Override
