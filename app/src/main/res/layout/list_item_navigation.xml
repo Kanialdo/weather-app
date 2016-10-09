@@ -4,13 +4,16 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="?android:selectableItemBackground"
+              android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:padding="12dp">
+              android:padding="16dp">
 
     <ImageView
         android:id="@+id/list_item_navigation_iv_icon"
         android:layout_width="32dp"
-        android:layout_height="32dp"/>
+        android:layout_height="32dp"
+        android:layout_marginRight="16dp"
+        android:tint="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/list_item_navigation_tv_name"

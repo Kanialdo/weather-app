@@ -27,9 +27,9 @@ public class NavigationMenu {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    List<ViewElement> items;
+    private List<ViewElement> items;
 
-    UniversalRecyclerAdapter<ViewElement> adapter;
+    private UniversalRecyclerAdapter<ViewElement> adapter;
 
     public NavigationMenu(final MainActivity mainActivity, final View rootView) {
 

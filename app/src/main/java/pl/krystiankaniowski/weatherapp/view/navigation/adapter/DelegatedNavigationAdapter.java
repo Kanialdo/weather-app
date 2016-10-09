@@ -3,6 +3,7 @@ package pl.krystiankaniowski.weatherapp.view.navigation.adapter;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,6 +44,9 @@ public class DelegatedNavigationAdapter implements UniversalDelegatedAdapter<Nav
         @BindView(R.id.list_item_navigation_tv_name)
         TextView tvName;
 
+        @BindView(R.id.list_item_navigation_iv_icon)
+        ImageView ivIcon;
+
         public NavigationViewHolder(ViewGroup viewGroup) {
             super(viewGroup, R.layout.list_item_navigation);
             rootView.setClickable(true);
@@ -51,6 +55,7 @@ public class DelegatedNavigationAdapter implements UniversalDelegatedAdapter<Nav
         @Override
         public void bind(NavigationItem navigationItem) {
             tvName.setText(navigationItem.getName());
+            ivIcon.setImageResource(navigationItem.getIconId());
         }
 
         public void bind(final NavigationItem item, final OnClickListener<NavigationItem> listener) {
