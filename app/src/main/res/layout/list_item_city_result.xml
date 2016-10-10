@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/list_item_navigation_city_ll_root"
+              android:id="@+id/list_item_city_result_ll_root"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="?android:selectableItemBackground"
-              android:minHeight="60dp"
               android:orientation="vertical"
               android:padding="12dp">
 
     <TextView
-        android:id="@+id/list_item_navigation_city_tv_name"
+        android:id="@+id/list_item_city_result_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/simple_lorem_ipsum"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/list_item_city_result_tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/simple_lorem_ipsum"
+        android:textSize="12sp"/>
 
 </LinearLayout>

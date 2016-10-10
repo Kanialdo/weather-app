@@ -51,7 +51,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         new SearchPresenter(this);
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
-                .registerDelegatedAdapter(ViewElementType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
+                .registerDelegatedAdapter(ViewElementType.RESULT_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
                         new OnClickListener<City>() {
                             @Override
                             public void onClick(City city) {

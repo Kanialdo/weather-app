@@ -37,14 +37,14 @@ public class DelegatedNavigationCityAdapter implements UniversalDelegatedAdapter
 
     static class NavigationCityViewHolder extends UniversalViewHolder<NavigationCityItem> {
 
-        @BindView(R.id.list_item_navigation_city_ll_root)
+        @BindView(R.id.list_item_city_navigation_ll_root)
         LinearLayout rootView;
 
-        @BindView(R.id.list_item_navigation_city_tv_name)
+        @BindView(R.id.list_item_city_navigation_tv_name)
         TextView tvName;
 
         public NavigationCityViewHolder(ViewGroup viewGroup) {
-            super(viewGroup, R.layout.list_item_navigation_city);
+            super(viewGroup, R.layout.list_item_city_navigation);
             rootView.setClickable(true);
         }
 

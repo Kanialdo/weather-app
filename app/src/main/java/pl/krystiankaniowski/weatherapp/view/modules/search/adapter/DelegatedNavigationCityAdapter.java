@@ -38,28 +38,32 @@ public class DelegatedNavigationCityAdapter implements UniversalDelegatedAdapter
 
     static class NavigationCityViewHolder extends UniversalViewHolder<City> {
 
-        @BindView(R.id.list_item_navigation_city_ll_root)
+        @BindView(R.id.list_item_city_result_ll_root)
         LinearLayout rootView;
 
-        @BindView(R.id.list_item_navigation_city_tv_name)
+        @BindView(R.id.list_item_city_result_tv_name)
         TextView tvName;
 
+        @BindView(R.id.list_item_city_result_tv_location)
+        TextView tvLocation;
+
         public NavigationCityViewHolder(ViewGroup viewGroup) {
-            super(viewGroup, R.layout.list_item_navigation_city);
+            super(viewGroup, R.layout.list_item_city_result);
             rootView.setClickable(true);
         }
 
         @Override
-        public void bind(City navigationItem) {
-            tvName.setText(navigationItem.getName());
+        public void bind(City city) {
+            tvName.setText(city.getName() + ", " + city.getCountryCode());
+            tvLocation.setText(city.getLog() + ", " + city.getLag());
         }
 
-        public void bind(final City item, final OnClickListener<City> listener) {
-            bind(item);
+        public void bind(final City city, final OnClickListener<City> listener) {
+            bind(city);
             rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onClick(item);
+                    listener.onClick(city);
                 }
             });
         }
