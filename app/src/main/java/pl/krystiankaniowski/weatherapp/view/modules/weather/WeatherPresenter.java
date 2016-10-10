@@ -35,8 +35,9 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onWeatherReceive(WeatherMessage message){
-        view.setWeatherDetails(null);
+    public void onWeatherReceive(WeatherMessage message) {
+        view.setCityName(message.getCity());
+        view.setTemperature(String.valueOf(message.getTemperature()));
     }
 
     @Override

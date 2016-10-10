@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import pl.krystiankaniowski.weatherapp.R;
-import pl.krystiankaniowski.weatherapp.data.openweathermap.model.Weather;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 
 public class WeatherDetailsFragment extends BaseFragment implements WeatherContract.View {
@@ -68,8 +67,33 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     }
 
     @Override
-    public void setWeatherDetails(Weather weather) {
-        temperatureField.setText("received details");
+    public void setCityName(String cityName) {
+        cityNameField.setText(cityName);
+    }
+
+    @Override
+    public void setTemperature(String temperature) {
+        temperatureField.setText(temperature);
+    }
+
+    @Override
+    public void setWeather(String weather) {
+
+    }
+
+    @Override
+    public void setPreassure(String preassure) {
+
+    }
+
+    @Override
+    public void setHumidity(String humidity) {
+
+    }
+
+    @Override
+    public void setWind(String wind) {
+
     }
 
     @Override
