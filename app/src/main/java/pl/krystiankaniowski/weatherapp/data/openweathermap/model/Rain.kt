@@ -8,6 +8,6 @@ class Rain {
     /** Rain volume for the last 3 hours */
     @SerializedName("3h")
     @Expose
-    val _3h: Int? = null
+    val _3h: Float? = null
 
 }
