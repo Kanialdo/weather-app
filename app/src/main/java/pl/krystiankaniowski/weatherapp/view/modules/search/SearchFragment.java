@@ -15,7 +15,7 @@ import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
-import pl.krystiankaniowski.weatherapp.adapter.ViewElemenetType;
+import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
@@ -48,7 +48,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         new SearchPresenter(this);
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
-                .registerDelegatedAdapter(ViewElemenetType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
+                .registerDelegatedAdapter(ViewElementType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
                         new OnClickListener<City>() {
                             @Override
                             public void onClick(City city) {

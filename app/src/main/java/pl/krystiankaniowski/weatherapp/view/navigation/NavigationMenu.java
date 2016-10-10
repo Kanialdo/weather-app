@@ -13,7 +13,7 @@ import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
-import pl.krystiankaniowski.weatherapp.adapter.ViewElemenetType;
+import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
@@ -67,7 +67,7 @@ public class NavigationMenu {
         }));
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
-                .registerDelegatedAdapter(ViewElemenetType.NAVIGATION_ITEM.ordinal(), new DelegatedNavigationAdapter(
+                .registerDelegatedAdapter(ViewElementType.NAVIGATION_ITEM.ordinal(), new DelegatedNavigationAdapter(
                         new OnClickListener<NavigationItem>() {
                             @Override
                             public void onClick(NavigationItem navigationItem) {
@@ -76,7 +76,7 @@ public class NavigationMenu {
                                 }
                             }
                         }))
-                .registerDelegatedAdapter(ViewElemenetType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
+                .registerDelegatedAdapter(ViewElementType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
                         new OnClickListener<NavigationCityItem>() {
                             @Override
                             public void onClick(NavigationCityItem navigationItem) {
