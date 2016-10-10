@@ -50,8 +50,8 @@ public class WeatherPresenter implements WeatherContract.Presenter {
                                     @Override
                                     public final void onNext(WeatherData data) {
                                         view.setCityName(data.getCityName());
-                                        view.setHumidity(String.valueOf(data.getMain().getHumidity()));
-                                        view.setTemperature(TemperatureConverter.toCelsius(data.getMain().getTemperature()));
+                                        view.setHumidity(DataFormatter.formatPercentage(data.getMain().getHumidity()));
+                                        view.setTemperature(DataFormatter.formatCelcius(TemperatureConverter.toCelsius(data.getMain().getTemperature())));
                                         view.setWeather(data.getWeather().get(0).getDescription());
                                         view.setPressure(DataFormatter.formatPa(data.getMain().getPressure()));
                                     }
