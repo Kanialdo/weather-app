@@ -49,18 +49,18 @@ public class NavigationMenu {
                 mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135));
             }
         }));
-        items.add(new NavigationItem("Add city", android.R.drawable.ic_menu_add, new Runnable() {
+        items.add(new NavigationItem("Search city", R.drawable.ic_search, new Runnable() {
             @Override
             public void run() {
                 mainActivity.switchContent(new SearchFragment());
             }
         }));
-        items.add(new NavigationItem("Settings", android.R.drawable.ic_menu_preferences, new Runnable() {
+        items.add(new NavigationItem("Settings", R.drawable.ic_settings, new Runnable() {
             @Override
             public void run() {
             }
         }));
-        items.add(new NavigationItem("About app", android.R.drawable.ic_menu_info_details, new Runnable() {
+        items.add(new NavigationItem("About app", R.drawable.ic_info, new Runnable() {
             @Override
             public void run() {
             }

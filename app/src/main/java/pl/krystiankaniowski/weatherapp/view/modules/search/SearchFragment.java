@@ -71,7 +71,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         recyclerView.setAdapter(adapter);
 
         List<ViewElement> data = new ArrayList<>();
-        data.add(new DelegatedInfoAdapter.InfoItem("enter query", "", android.R.drawable.ic_menu_search));
+        data.add(new DelegatedInfoAdapter.InfoItem("enter query", "", R.drawable.ic_search));
         adapter.setData(data);
         adapter.notifyDataSetChanged();
 
@@ -89,7 +89,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         super.onPause();
     }
 
-    @OnClick(R.id.fragment_search_b_search)
+    @OnClick(R.id.fragment_search_ib_search)
     void search() {
         presenter.requestMatchingCities(getContext(), searchInput.getText().toString());
     }
@@ -111,7 +111,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     public void setErrorView() {
 
         List<ViewElement> data = new ArrayList<>();
-        data.add(new DelegatedInfoAdapter.InfoItem("error", "error", android.R.drawable.stat_notify_error));
+        data.add(new DelegatedInfoAdapter.InfoItem("error", "error", R.drawable.ic_error));
         adapter.setData(data);
         adapter.notifyDataSetChanged();
 
