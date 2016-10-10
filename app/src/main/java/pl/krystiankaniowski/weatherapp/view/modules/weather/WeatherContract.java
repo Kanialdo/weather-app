@@ -17,7 +17,7 @@ public interface WeatherContract {
 
         void setWeather(String weather);
 
-        void setPreassure(String preassure);
+        void setPressure(String preassure);
 
         void setHumidity(String humidity);
 

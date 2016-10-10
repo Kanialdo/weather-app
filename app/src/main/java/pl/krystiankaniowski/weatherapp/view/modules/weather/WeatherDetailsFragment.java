@@ -22,6 +22,12 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @BindView(R.id.fragment_details_tv_temperature)
     TextView temperatureField;
 
+    @BindView(R.id.fragment_details_tv_summary)
+    TextView summaryField;
+
+    @BindView(R.id.fragment_details_tv_pressure)
+    TextView pressureField;
+
     private WeatherContract.Presenter presenter;
 
     public static Fragment newInstance(int cityId) {
@@ -78,12 +84,12 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @Override
     public void setWeather(String weather) {
-
+        summaryField.setText(weather);
     }
 
     @Override
-    public void setPreassure(String preassure) {
-
+    public void setPressure(String pressure) {
+        pressureField.setText(pressure);
     }
 
     @Override
@@ -98,7 +104,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @Override
     public void setError(String error) {
-
+        summaryField.setText(error);
     }
 
     @Override

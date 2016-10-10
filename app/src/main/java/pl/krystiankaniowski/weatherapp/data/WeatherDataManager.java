@@ -10,6 +10,7 @@ import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,6 +55,10 @@ public class WeatherDataManager {
                     }
                 });
 
+    }
+
+    public Observable<WeatherData> getWeather(final int cityId) {
+        return service.getCurrentData(cityId, OpenWeatherMapService.API_KEY);
     }
 
 }

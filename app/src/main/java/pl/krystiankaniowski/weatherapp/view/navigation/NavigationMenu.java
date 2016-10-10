@@ -37,16 +37,16 @@ public class NavigationMenu {
 
         items = new ArrayList<>();
 
-        items.add(new NavigationCityItem("Example city", new Runnable() {
+        items.add(new NavigationCityItem("Example city (Lublin, PL)", new Runnable() {
             @Override
             public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance(1));
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance(765876));
             }
         }));
-        items.add(new NavigationCityItem("Example city 2", new Runnable() {
+        items.add(new NavigationCityItem("Example city (Warsaw, PL)", new Runnable() {
             @Override
             public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance(2));
+                mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135));
             }
         }));
         items.add(new NavigationItem("Add city", android.R.drawable.ic_menu_add, new Runnable() {

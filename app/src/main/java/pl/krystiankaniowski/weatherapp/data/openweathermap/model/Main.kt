@@ -8,12 +8,12 @@ class Main {
     /** Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit. */
     @SerializedName("temp")
     @Expose
-    val temperature: Double? = null
+    val temperature: Float? = null
 
     /** Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa */
     @SerializedName("pressure")
     @Expose
-    val pressure: Double? = null
+    val pressure: Float? = null
 
     /** Humidity, % */
     @SerializedName("humidity")
@@ -23,21 +23,21 @@ class Main {
     /** Minimum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit. */
     @SerializedName("temp_min")
     @Expose
-    val temperatureMin: Double? = null
+    val temperatureMin: Float? = null
 
     /** Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit. */
     @SerializedName("temp_max")
     @Expose
-    val temperatureMax: Double? = null
+    val temperatureMax: Float? = null
 
     /** Atmospheric pressure on the sea level, hPa */
     @SerializedName("sea_level")
     @Expose
-    private val seaLevelPressure: Double? = null
+    private val seaLevelPressure: Float? = null
 
     /** Atmospheric pressure on the ground level, hPa */
     @SerializedName("grnd_level")
     @Expose
-    private val groundLevelPressure: Double? = null
+    private val groundLevelPressure: Float? = null
 
 }
