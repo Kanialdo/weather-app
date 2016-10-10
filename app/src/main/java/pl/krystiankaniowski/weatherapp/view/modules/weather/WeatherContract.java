@@ -23,7 +23,7 @@ public interface WeatherContract {
 
         void setWind(String wind);
 
-        void setError(String error);
+        void setErrorView(String error);
 
     }
 

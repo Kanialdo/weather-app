@@ -44,7 +44,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
                                     @Override
                                     public final void onError(Throwable e) {
-                                        view.setError(e.getMessage());
+                                        view.setErrorView(e.getMessage());
                                     }
 
                                     @Override

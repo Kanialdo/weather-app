@@ -18,6 +18,10 @@ public interface SearchContract {
 
         void onCitiesResponse(List<City> matchingCities);
 
+        void setLoadingView();
+
+        void setErrorView();
+
     }
 
     interface Presenter extends BasePresenter {

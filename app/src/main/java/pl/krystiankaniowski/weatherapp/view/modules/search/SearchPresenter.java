@@ -34,6 +34,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void requestMatchingCities(final Context context, final String city) {
 
+        view.setLoadingView();
+
         subscriptions.add(
                 Observable.create(new Observable.OnSubscribe<List<City>>() {
                     @Override
@@ -50,7 +52,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                view.setErrorView();
                             }
 
                             @Override

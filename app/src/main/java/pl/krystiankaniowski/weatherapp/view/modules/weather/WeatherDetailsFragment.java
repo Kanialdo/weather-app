@@ -103,7 +103,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     }
 
     @Override
-    public void setError(String error) {
+    public void setErrorView(String error) {
         summaryField.setText(error);
     }
 

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -15,8 +16,10 @@ import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
-import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
+import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
+import pl.krystiankaniowski.weatherapp.adapter.utils.DelegatedInfoAdapter;
+import pl.krystiankaniowski.weatherapp.adapter.utils.DelegatedSearchingAdapter;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.adapter.DelegatedNavigationCityAdapter;
@@ -55,6 +58,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                                 ((MainActivity) getActivity()).switchContent(WeatherDetailsFragment.newInstance(city.getId()));
                             }
                         }))
+                .registerDelegatedAdapter(ViewElementType.GENERAL_MESSAGE.ordinal(), new DelegatedInfoAdapter())
+                .registerDelegatedAdapter(ViewElementType.GENERAL_SEARCHING.ordinal(), new DelegatedSearchingAdapter())
                 .build();
 
     }
@@ -64,6 +69,11 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        List<ViewElement> data = new ArrayList<>();
+        data.add(new DelegatedInfoAdapter.InfoItem("enter query", "", android.R.drawable.ic_menu_search));
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -93,6 +103,26 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     public void onCitiesResponse(List<City> matchingCities) {
 
         adapter.setData(matchingCities);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void setErrorView() {
+
+        List<ViewElement> data = new ArrayList<>();
+        data.add(new DelegatedInfoAdapter.InfoItem("error", "error", android.R.drawable.stat_notify_error));
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void setLoadingView() {
+
+        List<ViewElement> data = new ArrayList<>();
+        data.add(new DelegatedSearchingAdapter.SearchItem(""));
+        adapter.setData(data);
         adapter.notifyDataSetChanged();
 
     }

@@ -35,12 +35,12 @@ public class DelegatedSearchingAdapter implements UniversalDelegatedAdapter<Dele
 
     @Override
     public UniversalViewHolder<SearchItem> onCreateViewHolder(ViewGroup viewGroup) {
-        return new NavigationSearachingViewHolder(viewGroup);
+        return new SearchingViewHolder(viewGroup);
     }
 
     @Override
     public void onBindViewHolder(UniversalViewHolder<SearchItem> viewHolder, SearchItem item) {
-        ((NavigationSearachingViewHolder) viewHolder).bind(item);
+        ((SearchingViewHolder) viewHolder).bind(item);
     }
 
     @Override
@@ -48,12 +48,12 @@ public class DelegatedSearchingAdapter implements UniversalDelegatedAdapter<Dele
         return true;
     }
 
-    static class NavigationSearachingViewHolder extends UniversalViewHolder<SearchItem> {
+    static class SearchingViewHolder extends UniversalViewHolder<SearchItem> {
 
         @BindView(R.id.list_item_searching_tv_message)
         TextView tvName;
 
-        public NavigationSearachingViewHolder(ViewGroup viewGroup) {
+        public SearchingViewHolder(ViewGroup viewGroup) {
             super(viewGroup, R.layout.list_item_searching);
         }
 
