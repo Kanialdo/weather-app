@@ -3,6 +3,7 @@ package pl.krystiankaniowski.weatherapp.view.modules.weather;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,6 +28,9 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @BindView(R.id.fragment_details_tv_pressure)
     TextView pressureField;
+
+    @BindView(R.id.fragment_details_tv_humminidy)
+    TextView humidityField;
 
     private WeatherContract.Presenter presenter;
 
@@ -89,12 +93,12 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @Override
     public void setPressure(String pressure) {
-        pressureField.setText(pressure);
+        pressureField.setText(TextUtils.expandTemplate("pressure: ^1", pressure));
     }
 
     @Override
     public void setHumidity(String humidity) {
-
+        humidityField.setText(TextUtils.expandTemplate("humidity: ^1", humidity));
     }
 
     @Override

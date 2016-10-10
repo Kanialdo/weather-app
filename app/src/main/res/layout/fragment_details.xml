@@ -1,89 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical"
-              android:padding="16dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/fragment_details_tv_city_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="20sp"/>
+        android:clipToPadding="false"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/fragment_details_tv_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fragment_details_tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/simple_lorem_ipsum"
+            android:textSize="24sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fragment_details_tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/simple_lorem_ipsum"
+            android:textSize="32sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_wind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fragment_details_tv_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/simple_lorem_ipsum"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_humminidy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fragment_details_tv_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/simple_lorem_ipsum"
+            android:textSize="13sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_pressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/fragment_details_tv_sunrise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/fragment_details_tv_pressure"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/simple_lorem_ipsum"
+                android:textSize="13sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_sunset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/fragment_details_tv_humminidy"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/simple_lorem_ipsum"
+                android:textSize="13sp"/>
 
-    <TextView
-        android:id="@+id/fragment_details_tv_update_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/simple_lorem_ipsum"
-        android:textSize="16sp"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fragment_details_tv_sunrise"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/simple_lorem_ipsum"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/fragment_details_tv_sunset"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/simple_lorem_ipsum"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fragment_details_tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/simple_lorem_ipsum"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+
+</ScrollView>
+
+
