@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="General">
+
+        <Preference
+            android:summary="test test test"
+            android:title="Test"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

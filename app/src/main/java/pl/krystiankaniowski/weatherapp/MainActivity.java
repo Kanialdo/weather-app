@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationMenu menu;
 
-    @BindView(R.id.my_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)

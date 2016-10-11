@@ -1,5 +1,6 @@
 package pl.krystiankaniowski.weatherapp.view.navigation;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
+import pl.krystiankaniowski.weatherapp.settings.PreferenceActivity;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationAdapter;
@@ -46,7 +48,7 @@ public class NavigationMenu {
         items.add(new NavigationCityItem("Example city (Lublin, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(765876))));
         items.add(new NavigationCityItem("Example city (Warsaw, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135))));
         items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
-        items.add(new NavigationItem("Settings", R.drawable.ic_settings, null));
+        items.add(new NavigationItem("Settings", R.drawable.ic_settings, () -> mainActivity.startActivity(new Intent(mainActivity, PreferenceActivity.class))));
         items.add(new NavigationItem("About app", R.drawable.ic_info, null));
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
