@@ -1,7 +1,6 @@
 package pl.krystiankaniowski.weatherapp.view.navigation.adapter;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,12 +59,7 @@ public class DelegatedNavigationAdapter implements UniversalDelegatedAdapter<Nav
 
         public void bind(final NavigationItem item, final OnClickListener<NavigationItem> listener) {
             bind(item);
-            rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onClick(item);
-                }
-            });
+            rootView.setOnClickListener(view -> listener.onClick(item));
         }
 
     }

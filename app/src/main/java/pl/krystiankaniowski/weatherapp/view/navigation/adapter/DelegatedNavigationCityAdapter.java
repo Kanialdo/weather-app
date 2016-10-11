@@ -1,7 +1,6 @@
 package pl.krystiankaniowski.weatherapp.view.navigation.adapter;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,12 +54,7 @@ public class DelegatedNavigationCityAdapter implements UniversalDelegatedAdapter
 
         public void bind(final NavigationCityItem item, final OnClickListener<NavigationCityItem> listener) {
             bind(item);
-            rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onClick(item);
-                }
-            });
+            rootView.setOnClickListener(view -> listener.onClick(item));
         }
 
     }

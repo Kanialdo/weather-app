@@ -13,7 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
-import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
@@ -44,55 +43,26 @@ public class NavigationMenu {
 
         items = new ArrayList<>();
 
-        items.add(new NavigationCityItem("Example city (Lublin, PL)", new Runnable() {
-            @Override
-            public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance(765876));
-            }
-        }));
-        items.add(new NavigationCityItem("Example city (Warsaw, PL)", new Runnable() {
-            @Override
-            public void run() {
-                mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135));
-            }
-        }));
-        items.add(new NavigationItem("Search city", R.drawable.ic_search, new Runnable() {
-            @Override
-            public void run() {
-                mainActivity.switchContent(new SearchFragment());
-            }
-        }));
-        items.add(new NavigationItem("Settings", R.drawable.ic_settings, new Runnable() {
-            @Override
-            public void run() {
-            }
-        }));
-        items.add(new NavigationItem("About app", R.drawable.ic_info, new Runnable() {
-            @Override
-            public void run() {
-            }
-        }));
+        items.add(new NavigationCityItem("Example city (Lublin, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(765876))));
+        items.add(new NavigationCityItem("Example city (Warsaw, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135))));
+        items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
+        items.add(new NavigationItem("Settings", R.drawable.ic_settings, null));
+        items.add(new NavigationItem("About app", R.drawable.ic_info, null));
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
                 .registerDelegatedAdapter(ViewElementType.NAVIGATION_ITEM.ordinal(), new DelegatedNavigationAdapter(
-                        new OnClickListener<NavigationItem>() {
-                            @Override
-                            public void onClick(NavigationItem navigationItem) {
-                                if (navigationItem.getRunnable() != null) {
-                                    navigationItem.getRunnable().run();
-                                }
-                                drawerLayout.closeDrawers();
+                        navigationItem -> {
+                            if (navigationItem.getRunnable() != null) {
+                                navigationItem.getRunnable().run();
                             }
+                            drawerLayout.closeDrawers();
                         }))
                 .registerDelegatedAdapter(ViewElementType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
-                        new OnClickListener<NavigationCityItem>() {
-                            @Override
-                            public void onClick(NavigationCityItem navigationItem) {
-                                if (navigationItem.getRunnable() != null) {
-                                    navigationItem.getRunnable().run();
-                                }
-                                drawerLayout.closeDrawers();
+                        navigationItem -> {
+                            if (navigationItem.getRunnable() != null) {
+                                navigationItem.getRunnable().run();
                             }
+                            drawerLayout.closeDrawers();
                         }))
                 .build();
 
