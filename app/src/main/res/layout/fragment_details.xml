@@ -107,6 +107,11 @@
             android:text="@string/simple_lorem_ipsum"
             android:textSize="13sp"/>
 
+        <ImageView
+            android:id="@+id/fragment_details_iv_photo"
+            android:layout_width="300dp"
+            android:layout_height="300dp"/>
+
     </LinearLayout>
 
 </ScrollView>

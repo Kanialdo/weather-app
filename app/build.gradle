@@ -82,6 +82,9 @@ dependencies {
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
 
 repositories {
