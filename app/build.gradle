@@ -22,15 +22,32 @@ android {
     }
 
     buildTypes {
+
         release {
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
+
+        debug {
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            def GOOGLE_PLACES_API = properties.getProperty('api.googleplacesapi')
+            def OPEN_WEATHER_MAP_API = properties.getProperty('api.openweathermap')
+
+            buildConfigField "String", "GOOGLE_PLACES_API", "\"$GOOGLE_PLACES_API\""
+            buildConfigField "String", "OPEN_WEATHER_MAP_API", "\"$OPEN_WEATHER_MAP_API\""
+
+        }
+
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
 
 }
 
