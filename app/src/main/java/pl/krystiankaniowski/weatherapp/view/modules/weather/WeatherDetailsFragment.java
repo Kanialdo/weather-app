@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,6 +37,8 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     private WeatherContract.Presenter presenter;
 
+    private MenuItem favouriteIcon;
+
     public static Fragment newInstance(int cityId) {
 
         Bundle args = new Bundle();
@@ -47,6 +52,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
         new WeatherPresenter(this);
@@ -74,6 +80,38 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @Override
     protected void onCreateFragmentView(View view) {
         cityNameField.setText(String.valueOf(getArguments().getInt(ARGUMENT_CITY_ID)));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.weather_details, menu);
+        favouriteIcon = menu.findItem(R.id.menu_weather_details_favourite);
+        favouriteIcon.setIcon(presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID)) ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_weather_details_favourite:
+                if (presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID))) {
+                    presenter.unsetFavourite(getArguments().getInt(ARGUMENT_CITY_ID));
+                } else {
+                    presenter.setFavourite(getArguments().getInt(ARGUMENT_CITY_ID));
+                }
+                favouriteIcon.setIcon(presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID)) ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
+                break;
+
+            case R.id.menu_weather_details_refresh:
+                presenter.requestWeather(getArguments().getInt(ARGUMENT_CITY_ID));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

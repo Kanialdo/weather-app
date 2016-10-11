@@ -18,6 +18,8 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     private WeatherContract.View view;
     private CompositeSubscription subscriptions;
 
+    private boolean favourite;
+
     public WeatherPresenter(WeatherContract.View view) {
 
         this.view = view;
@@ -70,6 +72,21 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     public void unsubscribe() {
         subscriptions.clear();
         // EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public boolean isFavourite(int cityId) {
+        return favourite;
+    }
+
+    @Override
+    public void setFavourite(int cityId) {
+        favourite = true;
+    }
+
+    @Override
+    public void unsetFavourite(int cityId) {
+        favourite = false;
     }
 
 }

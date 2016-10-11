@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/menu_weather_details_favourite"
+        android:icon="@drawable/ic_favorite_off"
+        android:title="Favourite"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/menu_weather_details_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:title="Refresh"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>
