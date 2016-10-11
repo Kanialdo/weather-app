@@ -1,8 +1,10 @@
 package pl.krystiankaniowski.weatherapp.view.navigation;
 
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +15,10 @@ import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.OnClickListener;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
-import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
-import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
+import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
+import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationAdapter;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.DelegatedNavigationCityAdapter;
 import pl.krystiankaniowski.weatherapp.view.navigation.adapter.NavigationCityItem;
@@ -31,9 +33,14 @@ public class NavigationMenu {
 
     private UniversalRecyclerAdapter<ViewElement> adapter;
 
-    public NavigationMenu(final MainActivity mainActivity, final View rootView) {
+    public NavigationMenu(final MainActivity mainActivity, final DrawerLayout drawerLayout, final Toolbar toolbar) {
 
-        ButterKnife.bind(this, rootView);
+        ButterKnife.bind(this, drawerLayout);
+
+        final ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(mainActivity, drawerLayout, toolbar, R.string.info_drawer_open, R.string.info_drawer_close);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
         items = new ArrayList<>();
 
@@ -74,6 +81,7 @@ public class NavigationMenu {
                                 if (navigationItem.getRunnable() != null) {
                                     navigationItem.getRunnable().run();
                                 }
+                                drawerLayout.closeDrawers();
                             }
                         }))
                 .registerDelegatedAdapter(ViewElementType.NAVIGATION_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
@@ -83,13 +91,14 @@ public class NavigationMenu {
                                 if (navigationItem.getRunnable() != null) {
                                     navigationItem.getRunnable().run();
                                 }
+                                drawerLayout.closeDrawers();
                             }
                         }))
                 .build();
 
         adapter.setData(items);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(drawerLayout.getContext()));
         recyclerView.setAdapter(adapter);
 
     }

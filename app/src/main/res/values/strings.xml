@@ -3,4 +3,6 @@
     <string name="enter_city_name">Enter city name</string>
     <string name="search">Search</string>
     <string name="simple_lorem_ipsum">lorem ipsum</string>
+    <string name="info_drawer_open">Nav open</string>
+    <string name="info_drawer_close">nav close</string>
 </resources>
