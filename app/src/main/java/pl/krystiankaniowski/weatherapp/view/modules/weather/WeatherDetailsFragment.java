@@ -61,7 +61,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
-        new WeatherPresenter(this);
+        new WeatherPresenter(this, getArguments().getInt(ARGUMENT_CITY_ID));
 
     }
 

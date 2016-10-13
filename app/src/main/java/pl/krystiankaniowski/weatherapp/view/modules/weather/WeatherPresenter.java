@@ -1,8 +1,10 @@
 package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
+import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
 import pl.krystiankaniowski.weatherapp.data.places.GooglePlacesManager;
+import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.utils.converters.TemperatureConverter;
 import pl.krystiankaniowski.weatherapp.utils.formatters.DataFormatter;
 import rx.Subscriber;
@@ -19,11 +21,16 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     private WeatherContract.View view;
     private CompositeSubscription subscriptions;
 
+    private int cityId;
+    private City city;
     private boolean favourite;
 
-    public WeatherPresenter(WeatherContract.View view) {
+    public WeatherPresenter(WeatherContract.View view, int cityId) {
 
         this.view = view;
+        this.cityId = cityId;
+
+        city = CacheManager.getInstance().getCity(cityId);
 
         subscriptions = new CompositeSubscription();
 
@@ -52,6 +59,9 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
                                     @Override
                                     public final void onNext(WeatherData data) {
+
+                                        city = new City(data.getId(), data.getCityName(), data.getCoordinates().getLongitude(), data.getCoordinates().getLatitude(), "");
+
                                         view.setCityName(data.getCityName());
                                         view.setHumidity(DataFormatter.formatPercentage(data.getMain().getHumidity()));
                                         view.setTemperature(DataFormatter.formatCelcius(TemperatureConverter.toCelsius(data.getMain().getTemperature())));
@@ -67,6 +77,11 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
     @Override
     public void subscribe() {
+
+        if (city != null) {
+            view.setCityName(city.getName());
+        }
+
         // EventBus.getDefault().register(this);
     }
 
@@ -84,6 +99,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     @Override
     public void setFavourite(int cityId) {
         favourite = true;
+        CacheManager.getInstance().saveCity(city);
     }
 
     @Override

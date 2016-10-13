@@ -17,6 +17,8 @@ import pl.krystiankaniowski.weatherapp.R;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
+import pl.krystiankaniowski.weatherapp.data.cities.City;
+import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.settings.PreferenceActivity;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
@@ -45,8 +47,10 @@ public class NavigationMenu {
 
         items = new ArrayList<>();
 
-        items.add(new NavigationCityItem("Example city (Lublin, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(765876))));
-        items.add(new NavigationCityItem("Example city (Warsaw, PL)", () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(756135))));
+        for (City city : CacheManager.getInstance().getFavourites()) {
+            items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(city.getId()))));
+        }
+
         items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
         items.add(new NavigationItem("Settings", R.drawable.ic_settings, () -> mainActivity.startActivity(new Intent(mainActivity, PreferenceActivity.class))));
         items.add(new NavigationItem("About app", R.drawable.ic_info, null));

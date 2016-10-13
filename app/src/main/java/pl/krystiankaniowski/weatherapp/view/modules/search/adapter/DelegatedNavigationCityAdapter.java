@@ -54,7 +54,7 @@ public class DelegatedNavigationCityAdapter implements UniversalDelegatedAdapter
         @Override
         public void bind(City city) {
             tvName.setText(city.getName() + ", " + city.getCountryCode());
-            tvLocation.setText(city.getLog() + ", " + city.getLag());
+            tvLocation.setText(city.getLongitude() + ", " + city.getLatitude());
         }
 
         public void bind(final City city, final OnClickListener<City> listener) {

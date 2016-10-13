@@ -52,8 +52,8 @@ public class CitiesManager {
         return new City(
                 Integer.valueOf(data[0]),
                 data[1],
-                Double.valueOf(data[2]),
-                Double.valueOf(data[3]),
+                Float.valueOf(data[2]),
+                Float.valueOf(data[3]),
                 data[4]
         );
 

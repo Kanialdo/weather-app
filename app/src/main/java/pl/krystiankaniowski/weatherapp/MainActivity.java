@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
 import pl.krystiankaniowski.weatherapp.view.navigation.NavigationMenu;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+
+        CacheManager.init(this);
 
         menu = new NavigationMenu(this, drawerLayout, toolbar);
 
