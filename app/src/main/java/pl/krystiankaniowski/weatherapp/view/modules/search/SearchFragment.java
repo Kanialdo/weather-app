@@ -125,6 +125,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     @Override
     public void onPause() {
         presenter.unsubscribe();
+        KeyboardUtils.hideKeyboard(searchInput);
         super.onPause();
     }
 

@@ -7,6 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,7 @@ import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
+import pl.krystiankaniowski.weatherapp.eventbus.FavouritesChanged;
 import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.settings.PreferenceActivity;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
@@ -32,11 +37,20 @@ public class NavigationMenu {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private final MainActivity mainActivity;
+    private final DrawerLayout drawerLayout;
+    private final Toolbar toolbar;
+
     private List<ViewElement> items;
 
     private UniversalRecyclerAdapter<ViewElement> adapter;
 
     public NavigationMenu(final MainActivity mainActivity, final DrawerLayout drawerLayout, final Toolbar toolbar) {
+        this.mainActivity = mainActivity;
+        this.drawerLayout = drawerLayout;
+        this.toolbar = toolbar;
+
+        EventBus.getDefault().register(this);
 
         ButterKnife.bind(this, drawerLayout);
 
@@ -44,16 +58,6 @@ public class NavigationMenu {
 
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-
-        items = new ArrayList<>();
-
-        for (City city : CacheManager.getInstance().getFavourites()) {
-            items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(city.getId()))));
-        }
-
-        items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
-        items.add(new NavigationItem("Settings", R.drawable.ic_settings, () -> mainActivity.startActivity(new Intent(mainActivity, PreferenceActivity.class))));
-        items.add(new NavigationItem("About app", R.drawable.ic_info, null));
 
         adapter = new UniversalRecyclerAdapter.Builder<>()
                 .registerDelegatedAdapter(ViewElementType.NAVIGATION_ITEM.ordinal(), new DelegatedNavigationAdapter(
@@ -72,10 +76,32 @@ public class NavigationMenu {
                         }))
                 .build();
 
-        adapter.setData(items);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(drawerLayout.getContext()));
         recyclerView.setAdapter(adapter);
+
+        buildNavigation();
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFavouritesChanged(FavouritesChanged message) {
+        buildNavigation();
+    }
+
+    private void buildNavigation() {
+
+        items = new ArrayList<>();
+
+        for (City city : CacheManager.getInstance().getFavourites()) {
+            items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(city.getId()))));
+        }
+
+        items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
+        items.add(new NavigationItem("Settings", R.drawable.ic_settings, () -> mainActivity.startActivity(new Intent(mainActivity, PreferenceActivity.class))));
+        items.add(new NavigationItem("About app", R.drawable.ic_info, null));
+
+        adapter.setData(items);
+        adapter.notifyDataSetChanged();
 
     }
 

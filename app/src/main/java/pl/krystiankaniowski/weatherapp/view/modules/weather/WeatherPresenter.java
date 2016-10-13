@@ -7,6 +7,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
+import pl.krystiankaniowski.weatherapp.eventbus.FavouritesChanged;
 import pl.krystiankaniowski.weatherapp.eventbus.PhotoUrlReceived;
 import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.utils.converters.TemperatureConverter;
@@ -118,12 +119,14 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     public void setFavourite() {
         city.setFavourite(true);
         CacheManager.getInstance().saveCity(city);
+        EventBus.getDefault().post(new FavouritesChanged());
     }
 
     @Override
     public void unsetFavourite() {
         city.setFavourite(false);
         CacheManager.getInstance().saveCity(city);
+        EventBus.getDefault().post(new FavouritesChanged());
     }
 
 }
