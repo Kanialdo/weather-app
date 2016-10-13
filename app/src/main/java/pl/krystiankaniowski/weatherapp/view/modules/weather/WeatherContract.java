@@ -31,13 +31,13 @@ public interface WeatherContract {
 
     interface Presenter extends BasePresenter {
 
-        boolean isFavourite(int cityId);
+        boolean isFavourite();
 
-        void requestWeather(int cityId);
+        void requestWeather();
 
-        void setFavourite(int cityId);
+        void setFavourite();
 
-        void unsetFavourite(int cityId);
+        void unsetFavourite();
 
     }
 

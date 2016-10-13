@@ -1,9 +1,13 @@
 package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
-import pl.krystiankaniowski.weatherapp.data.places.GooglePlacesManager;
+import pl.krystiankaniowski.weatherapp.eventbus.PhotoUrlReceived;
 import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.utils.converters.TemperatureConverter;
 import pl.krystiankaniowski.weatherapp.utils.formatters.DataFormatter;
@@ -23,7 +27,8 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
     private int cityId;
     private City city;
-    private boolean favourite;
+
+    private boolean viewReady;
 
     public WeatherPresenter(WeatherContract.View view, int cityId) {
 
@@ -32,6 +37,8 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
         city = CacheManager.getInstance().getCity(cityId);
 
+        assert city != null;
+
         subscriptions = new CompositeSubscription();
 
         view.setPresenter(this);
@@ -39,7 +46,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     }
 
     @Override
-    public void requestWeather(int cityId) {
+    public void requestWeather() {
 
         subscriptions.add(
                 new WeatherDataManager().getWeather(cityId)
@@ -59,15 +66,11 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
                                     @Override
                                     public final void onNext(WeatherData data) {
-
-                                        city = new City(data.getId(), data.getCityName(), data.getCoordinates().getLongitude(), data.getCoordinates().getLatitude(), "");
-
                                         view.setCityName(data.getCityName());
                                         view.setHumidity(DataFormatter.formatPercentage(data.getMain().getHumidity()));
                                         view.setTemperature(DataFormatter.formatCelcius(TemperatureConverter.toCelsius(data.getMain().getTemperature())));
                                         view.setWeather(data.getWeather().get(0).getDescription());
                                         view.setPressure(DataFormatter.formatPa(data.getMain().getPressure()));
-                                        new GooglePlacesManager().findPlaces(data.getCoordinates().getLatitude(), data.getCoordinates().getLongitude(), link -> view.setPhotoUrl(link));
                                     }
                                 }
                         )
@@ -78,33 +81,49 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     @Override
     public void subscribe() {
 
+        viewReady = true;
+
         if (city != null) {
             view.setCityName(city.getName());
+            if (city.getPhotoUrl() != null) {
+                view.setPhotoUrl(city.getPhotoUrl());
+            }
         }
 
-        // EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
     public void unsubscribe() {
+        viewReady = false;
+        EventBus.getDefault().unregister(this);
         subscriptions.clear();
-        // EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCityPhotoUrlFounded(PhotoUrlReceived message) {
+        city.setPhotoUrl(message.getLink());
+        if (viewReady) {
+            view.setPhotoUrl(city.getPhotoUrl());
+        }
     }
 
     @Override
-    public boolean isFavourite(int cityId) {
-        return favourite;
+    public boolean isFavourite() {
+        return city.isFavourite();
     }
 
     @Override
-    public void setFavourite(int cityId) {
-        favourite = true;
+    public void setFavourite() {
+        city.setFavourite(true);
         CacheManager.getInstance().saveCity(city);
     }
 
     @Override
-    public void unsetFavourite(int cityId) {
-        favourite = false;
+    public void unsetFavourite() {
+        city.setFavourite(false);
+        CacheManager.getInstance().saveCity(city);
     }
 
 }

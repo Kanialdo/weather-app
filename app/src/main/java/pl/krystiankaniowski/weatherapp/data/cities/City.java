@@ -28,7 +28,10 @@ public class City implements ViewElement {
     private String countryCode;
 
     @SerializedName("photo_url")
-    private String photoUrl;
+    private String photoUrl = null;
+
+    @SerializedName("favourite")
+    private boolean favourite = false;
 
     public City(int id, String name, Float longitude, Float latitude, String countryCode) {
         this.id = id;
@@ -56,6 +59,22 @@ public class City implements ViewElement {
 
     public String getCountryCode() {
         return countryCode;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
     }
 
     @Override

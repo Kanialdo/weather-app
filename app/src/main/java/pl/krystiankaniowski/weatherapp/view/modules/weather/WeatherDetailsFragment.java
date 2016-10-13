@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,7 +70,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     public void onResume() {
         super.onResume();
         presenter.subscribe();
-        presenter.requestWeather(getArguments().getInt(ARGUMENT_CITY_ID));
+        presenter.requestWeather();
     }
 
     @Override
@@ -92,7 +93,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.weather_details, menu);
         favouriteIcon = menu.findItem(R.id.menu_weather_details_favourite);
-        favouriteIcon.setIcon(presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID)) ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
+        favouriteIcon.setIcon(presenter.isFavourite() ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -102,16 +103,16 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
         switch (item.getItemId()) {
 
             case R.id.menu_weather_details_favourite:
-                if (presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID))) {
-                    presenter.unsetFavourite(getArguments().getInt(ARGUMENT_CITY_ID));
+                if (presenter.isFavourite()) {
+                    presenter.unsetFavourite();
                 } else {
-                    presenter.setFavourite(getArguments().getInt(ARGUMENT_CITY_ID));
+                    presenter.setFavourite();
                 }
-                favouriteIcon.setIcon(presenter.isFavourite(getArguments().getInt(ARGUMENT_CITY_ID)) ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
+                favouriteIcon.setIcon(presenter.isFavourite() ? R.drawable.ic_favorite : R.drawable.ic_favorite_off);
                 break;
 
             case R.id.menu_weather_details_refresh:
-                presenter.requestWeather(getArguments().getInt(ARGUMENT_CITY_ID));
+                presenter.requestWeather();
                 break;
 
         }
@@ -127,7 +128,8 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     @Override
     public void setPhotoUrl(String photoUrl) {
-        Picasso.with(getActivity()).load(photoUrl).resize(photoField.getWidth(), photoField.getHeight()).centerCrop().into(photoField);
+        Log.d(TAG, "setPhotoUrl() called with: photoUrl = [" + photoUrl + "]");
+        Picasso.with(getActivity()).load(photoUrl).placeholder(R.drawable.ic_info).resize(640, 480).centerCrop().into(photoField);
     }
 
     @Override

@@ -2,6 +2,9 @@ package pl.krystiankaniowski.weatherapp.data.places;
 
 import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
+
+import pl.krystiankaniowski.weatherapp.eventbus.PhotoUrlReceived;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,9 +36,9 @@ public class GooglePlacesManager {
 
     }
 
-    public void findPlaces(final float lon, final float log, final LinkObserver observer) {
+    public void findPlaces(final int cityId, final float lon, final float log) {
 
-        Log.d(TAG, "findPlaces() called with: lon = [" + lon + "], log = [" + log + "], observer = [" + observer + "]");
+        Log.d(TAG, "findPlaces() called with: cityId = [" + cityId + "], lon = [" + lon + "], log = [" + log + "]");
 
         service.findPlaces(lon + ", " + log, 500, GooglePlacesService.API_KEY)
                 .subscribeOn(Schedulers.newThread())
@@ -61,11 +64,11 @@ public class GooglePlacesManager {
                         String ref = data.getResults()[0].getPlaces()[0].getReference();
                         Log.v(TAG, "ref: " + data.getResults()[0].getPlaces()[0].getReference());
 
-                        String link = "https://maps.googleapis.com/maps/api/place/photo?photoreference="+ref+"&maxwidth=1000&key="+GooglePlacesService.API_KEY;
+                        String link = "https://maps.googleapis.com/maps/api/place/photo?photoreference=" + ref + "&maxwidth=1000&key=" + GooglePlacesService.API_KEY;
 
                         Log.d(TAG, link);
 
-                        observer.receiveLink(link);
+                        EventBus.getDefault().post(new PhotoUrlReceived(cityId, link));
 
                     }
                 });

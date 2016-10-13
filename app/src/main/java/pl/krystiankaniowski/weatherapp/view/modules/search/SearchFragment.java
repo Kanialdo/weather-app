@@ -23,6 +23,7 @@ import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
 import pl.krystiankaniowski.weatherapp.adapter.utils.DelegatedInfoAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.utils.DelegatedSearchingAdapter;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
+import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.adapter.DelegatedNavigationCityAdapter;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
@@ -57,6 +58,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                 .registerDelegatedAdapter(ViewElementType.RESULT_CITY_ITEM.ordinal(), new DelegatedNavigationCityAdapter(
                         city -> {
                             KeyboardUtils.hideKeyboard(searchInput);
+                            CacheManager.getInstance().saveCity(city);
                             ((MainActivity) getActivity()).switchContent(WeatherDetailsFragment.newInstance(city.getId()));
                         })
                 )
