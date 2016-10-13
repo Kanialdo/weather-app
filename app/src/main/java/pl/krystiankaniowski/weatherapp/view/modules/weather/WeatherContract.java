@@ -13,6 +13,8 @@ public interface WeatherContract {
 
         void setCityName(String cityName);
 
+        void setPhotoUrl(String photoUrl);
+
         void setTemperature(String temperature);
 
         void setWeather(String weather);

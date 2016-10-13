@@ -8,11 +8,11 @@ class Coordinates {
     /** City geo location, longitude */
     @SerializedName("lon")
     @Expose
-    val longitude: Double? = null
+    val longitude: Float? = null
 
     /** City geo location, latitude */
     @SerializedName("lat")
     @Expose
-    val latitude: Double? = null
+    val latitude: Float? = null
 
 }

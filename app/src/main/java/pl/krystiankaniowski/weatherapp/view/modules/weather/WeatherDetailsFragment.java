@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import pl.krystiankaniowski.weatherapp.R;
-import pl.krystiankaniowski.weatherapp.data.places.GooglePlacesManager;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 
 public class WeatherDetailsFragment extends BaseFragment implements WeatherContract.View {
@@ -125,12 +123,11 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @Override
     public void setCityName(String cityName) {
         cityNameField.setText(cityName);
+    }
 
-        new GooglePlacesManager().findPlaces(51.250000f, 22.566669f, link -> {
-            Log.d(TAG, link);
-            Picasso.with(getActivity()).load(link).into(photoField);
-        });
-
+    @Override
+    public void setPhotoUrl(String photoUrl) {
+        Picasso.with(getActivity()).load(photoUrl).resize(photoField.getWidth(), photoField.getHeight()).centerCrop().into(photoField);
     }
 
     @Override

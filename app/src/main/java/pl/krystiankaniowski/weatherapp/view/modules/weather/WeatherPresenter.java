@@ -2,6 +2,7 @@ package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
+import pl.krystiankaniowski.weatherapp.data.places.GooglePlacesManager;
 import pl.krystiankaniowski.weatherapp.utils.converters.TemperatureConverter;
 import pl.krystiankaniowski.weatherapp.utils.formatters.DataFormatter;
 import rx.Subscriber;
@@ -56,6 +57,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
                                         view.setTemperature(DataFormatter.formatCelcius(TemperatureConverter.toCelsius(data.getMain().getTemperature())));
                                         view.setWeather(data.getWeather().get(0).getDescription());
                                         view.setPressure(DataFormatter.formatPa(data.getMain().getPressure()));
+                                        new GooglePlacesManager().findPlaces(data.getCoordinates().getLatitude(), data.getCoordinates().getLongitude(), link -> view.setPhotoUrl(link));
                                     }
                                 }
                         )
