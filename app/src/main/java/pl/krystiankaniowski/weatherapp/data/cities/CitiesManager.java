@@ -25,7 +25,7 @@ public class CitiesManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 String name = line.split("\t")[1];
-                if (name.contains(pattern)) {
+                if (name.toLowerCase().startsWith(pattern.toLowerCase())) {
                     matchingCities.add(parseLine(line));
                 }
             }
