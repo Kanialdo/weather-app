@@ -1,17 +1,17 @@
 package pl.krystiankaniowski.weatherapp.view.modules.search;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,6 +28,9 @@ import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.adapter.DelegatedNavigationCityAdapter;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherDetailsFragment;
 import pl.krystiankaniowski.weatherapp.view.utils.KeyboardUtils;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class SearchFragment extends BaseFragment implements SearchContract.View {
 
@@ -42,6 +45,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     private SearchContract.Presenter presenter;
 
     private UniversalRecyclerAdapter<ViewElement> adapter;
+
+    private CompositeSubscription subscriptions = new CompositeSubscription();
 
     @Override
     protected int getLayoutId() {
@@ -74,45 +79,6 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        searchInput.addTextChangedListener(new TextWatcher() {
-
-            private long lastInput = System.currentTimeMillis();
-            private Handler handler = new Handler();
-            private Runnable lastRunnable;
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                lastInput = System.currentTimeMillis();
-
-                if (lastRunnable != null) {
-                    handler.removeCallbacks(lastRunnable);
-                }
-
-                lastRunnable = () -> {
-                    if (System.currentTimeMillis() < lastInput + 1200) {
-                        if (charSequence.toString().length() > 0) {
-                            presenter.requestMatchingCities(getContext(), charSequence.toString());
-                        } else {
-                            setMessageView();
-                        }
-                    }
-                };
-
-                handler.postDelayed(lastRunnable, 1000);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-
-        });
-
-        setMessageView();
-
     }
 
     @Override
@@ -120,10 +86,26 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         super.onResume();
         presenter.subscribe();
         searchInput.requestFocus();
+
+        subscriptions.add(
+                RxTextView.textChanges(searchInput)
+                        .debounce(1, TimeUnit.SECONDS, Schedulers.io())
+                        .map(CharSequence::toString)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(text -> {
+                            if (text.length() > 0) {
+                                presenter.requestMatchingCities(getContext(), text);
+                            } else {
+                                setMessageView();
+                            }
+                        })
+        );
+
     }
 
     @Override
     public void onPause() {
+        subscriptions.clear();
         presenter.unsubscribe();
         KeyboardUtils.hideKeyboard(searchInput);
         super.onPause();
