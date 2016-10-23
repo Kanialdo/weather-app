@@ -48,6 +48,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
     private CompositeSubscription subscriptions = new CompositeSubscription();
 
+    private String recentlyUsedCity;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_search;
@@ -79,6 +81,14 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                KeyboardUtils.hideKeyboard(searchInput);
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
     }
 
     @Override
@@ -93,10 +103,15 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                         .map(CharSequence::toString)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(text -> {
-                            if (text.length() > 0) {
-                                presenter.requestMatchingCities(getContext(), text);
+                            if (!text.equals(recentlyUsedCity)) {
+                                recentlyUsedCity = text;
+                                if (text.length() > 0) {
+                                    presenter.requestMatchingCities(getContext(), text);
+                                } else {
+                                    setMessageView();
+                                }
                             } else {
-                                setMessageView();
+                                // skip - same request
                             }
                         })
         );
