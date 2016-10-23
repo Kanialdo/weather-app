@@ -2,7 +2,6 @@ package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -46,7 +45,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
 
     private MenuItem favouriteIcon;
 
-    public static Fragment newInstance(int cityId) {
+    public static BaseFragment newInstance(int cityId) {
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENT_CITY_ID, cityId);
@@ -129,7 +128,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @Override
     public void setPhotoUrl(String photoUrl) {
         Log.d(TAG, "setPhotoUrl() called with: photoUrl = [" + photoUrl + "]");
-        Picasso.with(getActivity()).load(photoUrl).placeholder(R.drawable.ic_info).resize(640, 480).centerCrop().into(photoField);
+        Picasso.with(getActivity()).load(photoUrl).placeholder(R.drawable.default_background).resize(720, 480).centerCrop().into(photoField);
     }
 
     @Override

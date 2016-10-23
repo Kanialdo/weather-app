@@ -9,12 +9,14 @@
         android:clipToPadding="false"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="16dp">
+        >
 
         <ImageView
             android:id="@+id/fragment_details_iv_photo"
             android:layout_width="match_parent"
-            android:layout_height="240dp"/>
+            android:layout_height="240dp"
+            android:background="#dddddd"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/fragment_details_tv_city_name"

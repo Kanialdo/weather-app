@@ -64,7 +64,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                         city -> {
                             KeyboardUtils.hideKeyboard(searchInput);
                             CacheManager.getInstance().saveCity(city);
-                            ((MainActivity) getActivity()).switchContent(WeatherDetailsFragment.newInstance(city.getId()));
+                            ((MainActivity) getActivity()).showInnerView(WeatherDetailsFragment.newInstance(city.getId()));
                         })
                 )
                 .registerDelegatedAdapter(ViewElementType.GENERAL_MESSAGE.ordinal(), new DelegatedInfoAdapter())

@@ -93,10 +93,10 @@ public class NavigationMenu {
         items = new ArrayList<>();
 
         for (City city : CacheManager.getInstance().getFavourites()) {
-            items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.switchContent(WeatherDetailsFragment.newInstance(city.getId()))));
+            items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.showPrimaryFragment(WeatherDetailsFragment.newInstance(city.getId()))));
         }
 
-        items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.switchContent(new SearchFragment())));
+        items.add(new NavigationItem("Search city", R.drawable.ic_search, () -> mainActivity.showPrimaryFragment(new SearchFragment())));
         items.add(new NavigationItem("Settings", R.drawable.ic_settings, () -> mainActivity.startActivity(new Intent(mainActivity, PreferenceActivity.class))));
         items.add(new NavigationItem("About app", R.drawable.ic_info, null));
 
