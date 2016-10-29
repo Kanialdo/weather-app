@@ -4,6 +4,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import pl.krystiankaniowski.weatherapp.dagger.DaggerAppComponent;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
@@ -21,6 +25,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by kryst on 08.10.2016.
  */
 
+@Singleton
 public class WeatherPresenter implements WeatherContract.Presenter {
 
     private WeatherContract.View view;
@@ -30,6 +35,9 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     private City city;
 
     private boolean viewReady;
+
+    @Inject
+    WeatherDataManager weatherManager;
 
     public WeatherPresenter(WeatherContract.View view, int cityId) {
 
@@ -44,13 +52,15 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
         view.setPresenter(this);
 
+        DaggerAppComponent.builder().build().inject(this);
+
     }
 
     @Override
     public void requestWeather() {
 
         subscriptions.add(
-                new WeatherDataManager().getWeather(cityId)
+                weatherManager.getWeather(cityId)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

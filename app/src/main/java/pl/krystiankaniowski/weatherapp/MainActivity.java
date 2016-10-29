@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             showPrimaryFragment(new SearchFragment());
         }
 
+
     }
 
     public void showPrimaryFragment(BaseFragment fragment) {
