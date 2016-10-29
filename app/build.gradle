@@ -5,20 +5,20 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
 
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "pl.krystiankaniowski.weatherapp"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -85,7 +85,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // Picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+
+    // dagger
+    compile "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
 
 }
 
