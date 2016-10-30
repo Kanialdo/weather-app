@@ -12,7 +12,7 @@ class Data {
 
     @SerializedName("html_attributions")
     @Expose
-    val attributions: Array<Object>? = null
+    val attributions: Array<kotlin.Any>? = null
 
     @SerializedName("results")
     @Expose

@@ -1,12 +1,10 @@
-package pl.krystiankaniowski.weatherapp.dagger;
-
-import javax.inject.Singleton;
+package pl.krystiankaniowski.weatherapp.dagger.components;
 
 import dagger.Component;
+import pl.krystiankaniowski.weatherapp.dagger.modules.WeatherModule;
 import pl.krystiankaniowski.weatherapp.view.modules.weather.WeatherPresenter;
 
-@Singleton
-@Component(modules = {MainModule.class})
+@Component(modules = {WeatherModule.class})
 public interface AppComponent {
 
     void inject(WeatherPresenter weatherPresenter);

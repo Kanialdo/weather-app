@@ -1,17 +1,14 @@
-package pl.krystiankaniowski.weatherapp.dagger;
-
-import javax.inject.Singleton;
+package pl.krystiankaniowski.weatherapp.dagger.modules;
 
 import dagger.Module;
 import dagger.Provides;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 
 @Module
-public class MainModule {
+public class WeatherModule {
 
     @Provides
-    @Singleton
-    public WeatherDataManager providesWeaterDataManager() {
+    public WeatherDataManager providesWeatherDataManager() {
         return new WeatherDataManager();
     }
 

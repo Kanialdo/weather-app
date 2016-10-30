@@ -7,7 +7,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import pl.krystiankaniowski.weatherapp.dagger.DaggerAppComponent;
+import pl.krystiankaniowski.weatherapp.dagger.components.DaggerAppComponent;
+import pl.krystiankaniowski.weatherapp.dagger.modules.WeatherModule;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
@@ -52,7 +53,11 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
         view.setPresenter(this);
 
-        DaggerAppComponent.builder().build().inject(this);
+        DaggerAppComponent
+                .builder()
+                .weatherModule(new WeatherModule())
+                .build()
+                .inject(this);
 
     }
 

@@ -1,12 +1,16 @@
 package pl.krystiankaniowski.weatherapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.krystiankaniowski.weatherapp.dagger.ActivityInjector;
 import pl.krystiankaniowski.weatherapp.settings.CacheManager;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 import pl.krystiankaniowski.weatherapp.view.modules.search.SearchFragment;
@@ -23,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
+    @Inject
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActivityInjector.inject(this);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -40,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             // activity not created
             showPrimaryFragment(new SearchFragment());
         }
-
 
     }
 
