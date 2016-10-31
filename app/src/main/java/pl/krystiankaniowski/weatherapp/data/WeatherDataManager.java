@@ -4,12 +4,13 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
+import javax.inject.Inject;
+
+import pl.krystiankaniowski.weatherapp.WeatherApplication;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.OpenWeatherMapService;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
 import pl.krystiankaniowski.weatherapp.eventbus.WeatherMessage;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,16 +22,12 @@ public class WeatherDataManager {
 
     private final OpenWeatherMapService service;
 
+    @Inject
+    Retrofit retrofit;
+
     public WeatherDataManager() {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(OpenWeatherMapService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
+        WeatherApplication.getBaseComponent().inject(this);
         service = retrofit.create(OpenWeatherMapService.class);
-
     }
 
     public void doWeatherRequest(final int cityId) {

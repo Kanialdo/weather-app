@@ -1,5 +1,7 @@
 package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
+import android.util.Log;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -7,8 +9,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import pl.krystiankaniowski.weatherapp.dagger.components.DaggerAppComponent;
-import pl.krystiankaniowski.weatherapp.dagger.modules.WeatherModule;
+import pl.krystiankaniowski.weatherapp.WeatherApplication;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import pl.krystiankaniowski.weatherapp.data.openweathermap.model.WeatherData;
@@ -21,6 +22,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by kryst on 08.10.2016.
@@ -42,6 +45,10 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
     public WeatherPresenter(WeatherContract.View view, int cityId) {
 
+        Log.d(TAG, "WeatherPresenter: injecting...");
+        WeatherApplication.getBaseComponent().inject(this);
+        Log.i(TAG, "WeatherPresenter: weatherManager = " + weatherManager);
+
         this.view = view;
         this.cityId = cityId;
 
@@ -52,12 +59,6 @@ public class WeatherPresenter implements WeatherContract.Presenter {
         subscriptions = new CompositeSubscription();
 
         view.setPresenter(this);
-
-        DaggerAppComponent
-                .builder()
-                .weatherModule(new WeatherModule())
-                .build()
-                .inject(this);
 
     }
 

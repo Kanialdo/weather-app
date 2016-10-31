@@ -2,9 +2,10 @@ package pl.krystiankaniowski.weatherapp.dagger.components;
 
 import dagger.Component;
 import pl.krystiankaniowski.weatherapp.MainActivity;
-import pl.krystiankaniowski.weatherapp.dagger.modules.SettingsModule;
+import pl.krystiankaniowski.weatherapp.dagger.scope.ActivityScope;
 
-@Component(modules = {SettingsModule.class}, dependencies = ApplicationComponent.class)
+@ActivityScope
+@Component(dependencies = BaseComponent.class)
 public interface ActivityInjectorComponent {
 
     void inject(MainActivity activity);

@@ -13,7 +13,7 @@ public class ActivityInjector {
     public static void inject(MainActivity mainActivity) {
         DaggerActivityInjectorComponent
                 .builder()
-                .applicationComponent(((WeatherApplication) mainActivity.getApplication()).getApplicationComponent())
+                .baseComponent(WeatherApplication.getBaseComponent())
                 .build()
                 .inject(mainActivity);
     }
