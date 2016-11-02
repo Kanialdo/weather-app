@@ -7,6 +7,7 @@ import pl.krystiankaniowski.weatherapp.dagger.components.BaseComponent;
 import pl.krystiankaniowski.weatherapp.dagger.components.DaggerApplicationComponent;
 import pl.krystiankaniowski.weatherapp.dagger.components.DaggerBaseComponent;
 import pl.krystiankaniowski.weatherapp.dagger.modules.ApplicationModule;
+import pl.krystiankaniowski.weatherapp.dagger.modules.EventsModule;
 import pl.krystiankaniowski.weatherapp.dagger.modules.LocalModule;
 import pl.krystiankaniowski.weatherapp.dagger.modules.ManagersModule;
 import pl.krystiankaniowski.weatherapp.dagger.modules.NetworkModule;
@@ -31,6 +32,7 @@ public class WeatherApplication extends Application {
                 .localModule(new LocalModule())
                 .networkModule(new NetworkModule(OpenWeatherMapService.BASE_URL))
                 .managersModule(new ManagersModule())
+                .eventsModule(new EventsModule())
                 .build();
 
     }

@@ -14,10 +14,13 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.krystiankaniowski.weatherapp.MainActivity;
 import pl.krystiankaniowski.weatherapp.R;
+import pl.krystiankaniowski.weatherapp.WeatherApplication;
 import pl.krystiankaniowski.weatherapp.adapter.UniversalRecyclerAdapter;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElement;
 import pl.krystiankaniowski.weatherapp.adapter.ViewElementType;
@@ -45,12 +48,20 @@ public class NavigationMenu {
 
     private UniversalRecyclerAdapter<ViewElement> adapter;
 
+    @Inject
+    CacheManager cacheManager;
+
+    @Inject
+    EventBus eventBus;
+
     public NavigationMenu(final MainActivity mainActivity, final DrawerLayout drawerLayout, final Toolbar toolbar) {
         this.mainActivity = mainActivity;
         this.drawerLayout = drawerLayout;
         this.toolbar = toolbar;
 
-        EventBus.getDefault().register(this);
+        WeatherApplication.getBaseComponent().inject(this);
+
+        eventBus.register(this);
 
         ButterKnife.bind(this, drawerLayout);
 
@@ -92,7 +103,7 @@ public class NavigationMenu {
 
         items = new ArrayList<>();
 
-        for (City city : CacheManager.getInstance().getFavourites()) {
+        for (City city : cacheManager.getFavourites()) {
             items.add(new NavigationCityItem(city.getName() + ", " + city.getCountryCode(), () -> mainActivity.showPrimaryFragment(WeatherDetailsFragment.newInstance(city.getId()))));
         }
 

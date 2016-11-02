@@ -1,14 +1,13 @@
 package pl.krystiankaniowski.weatherapp.dagger.modules;
 
+import android.app.Application;
+
 import dagger.Module;
 import dagger.Provides;
 import pl.krystiankaniowski.weatherapp.dagger.scope.ApplicationScope;
 import pl.krystiankaniowski.weatherapp.data.WeatherDataManager;
+import pl.krystiankaniowski.weatherapp.data.cities.CitiesManager;
 import pl.krystiankaniowski.weatherapp.settings.CacheManager;
-
-/**
- * Created by kryst on 31.10.2016.
- */
 
 @Module
 public class ManagersModule {
@@ -21,8 +20,15 @@ public class ManagersModule {
 
     @Provides
     @ApplicationScope
-    public CacheManager providesCacheManager() {
+    public CacheManager providesCacheManager(Application application) {
+        CacheManager.init(application);
         return CacheManager.getInstance();
+    }
+
+    @Provides
+    @ApplicationScope
+    public CitiesManager providesCitiesManager() {
+        return new CitiesManager();
     }
 
 }

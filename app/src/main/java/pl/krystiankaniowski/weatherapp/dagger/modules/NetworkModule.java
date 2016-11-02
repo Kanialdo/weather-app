@@ -1,5 +1,9 @@
 package pl.krystiankaniowski.weatherapp.dagger.modules;
 
+import android.app.Application;
+
+import com.squareup.picasso.Picasso;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -34,6 +38,14 @@ public class NetworkModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
+    }
+
+    @Provides
+    @ApplicationScope
+    Picasso providesPicasso(Application application) {
+        Picasso.Builder picassoBuilder = new Picasso.Builder(application);
+        Picasso.setSingletonInstance(picassoBuilder.build());
+        return Picasso.with(application);
     }
 
 }

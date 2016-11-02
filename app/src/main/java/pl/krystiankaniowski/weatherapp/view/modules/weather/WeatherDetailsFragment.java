@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import pl.krystiankaniowski.weatherapp.R;
+import pl.krystiankaniowski.weatherapp.dagger.FragmentInjector;
 import pl.krystiankaniowski.weatherapp.view.base.BaseFragment;
 
 public class WeatherDetailsFragment extends BaseFragment implements WeatherContract.View {
@@ -41,6 +44,9 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @BindView(R.id.fragment_details_iv_photo)
     ImageView photoField;
 
+    @Inject
+    Picasso picasso;
+
     private WeatherContract.Presenter presenter;
 
     private MenuItem favouriteIcon;
@@ -60,6 +66,8 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+        FragmentInjector.inject(this);
 
         new WeatherPresenter(this, getArguments().getInt(ARGUMENT_CITY_ID));
 
@@ -128,7 +136,7 @@ public class WeatherDetailsFragment extends BaseFragment implements WeatherContr
     @Override
     public void setPhotoUrl(String photoUrl) {
         Log.d(TAG, "setPhotoUrl() called with: photoUrl = [" + photoUrl + "]");
-        Picasso.with(getActivity()).load(photoUrl).placeholder(R.drawable.default_background).resize(720, 480).centerCrop().into(photoField);
+        picasso.load(photoUrl).placeholder(R.drawable.default_background).resize(720, 480).centerCrop().into(photoField);
     }
 
     @Override

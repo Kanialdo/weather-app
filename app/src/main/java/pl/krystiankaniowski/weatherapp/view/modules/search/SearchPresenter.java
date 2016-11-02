@@ -4,6 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import pl.krystiankaniowski.weatherapp.WeatherApplication;
 import pl.krystiankaniowski.weatherapp.data.cities.CitiesManager;
 import pl.krystiankaniowski.weatherapp.data.cities.City;
 import rx.Observable;
@@ -21,7 +24,12 @@ public class SearchPresenter implements SearchContract.Presenter {
     private SearchContract.View view;
     private CompositeSubscription subscriptions;
 
+    @Inject
+    CitiesManager citiesManager;
+
     public SearchPresenter(SearchContract.View view) {
+
+        WeatherApplication.getBaseComponent().inject(this);
 
         this.view = view;
 
@@ -40,7 +48,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                 Observable.create(new Observable.OnSubscribe<List<City>>() {
                     @Override
                     public void call(Subscriber<? super List<City>> subscriber) {
-                        subscriber.onNext(new CitiesManager().findMathcingCity(context, city));
+                        subscriber.onNext(citiesManager.findMathcingCity(context, city));
                     }
                 }).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

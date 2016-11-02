@@ -1,7 +1,5 @@
 package pl.krystiankaniowski.weatherapp.view.modules.weather;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -23,8 +21,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by kryst on 08.10.2016.
  */
@@ -43,16 +39,20 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     @Inject
     WeatherDataManager weatherManager;
 
+    @Inject
+    CacheManager cacheManager;
+
+    @Inject
+    EventBus eventBus;
+
     public WeatherPresenter(WeatherContract.View view, int cityId) {
 
-        Log.d(TAG, "WeatherPresenter: injecting...");
         WeatherApplication.getBaseComponent().inject(this);
-        Log.i(TAG, "WeatherPresenter: weatherManager = " + weatherManager);
 
         this.view = view;
         this.cityId = cityId;
 
-        city = CacheManager.getInstance().getCity(cityId);
+        city = cacheManager.getCity(cityId);
 
         assert city != null;
 
@@ -107,14 +107,14 @@ public class WeatherPresenter implements WeatherContract.Presenter {
             }
         }
 
-        EventBus.getDefault().register(this);
+        eventBus.register(this);
 
     }
 
     @Override
     public void unsubscribe() {
         viewReady = false;
-        EventBus.getDefault().unregister(this);
+        eventBus.unregister(this);
         subscriptions.clear();
     }
 
@@ -134,15 +134,15 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     @Override
     public void setFavourite() {
         city.setFavourite(true);
-        CacheManager.getInstance().saveCity(city);
-        EventBus.getDefault().post(new FavouritesChanged());
+        cacheManager.saveCity(city);
+        eventBus.post(new FavouritesChanged());
     }
 
     @Override
     public void unsetFavourite() {
         city.setFavourite(false);
-        CacheManager.getInstance().saveCity(city);
-        EventBus.getDefault().post(new FavouritesChanged());
+        cacheManager.saveCity(city);
+        eventBus.post(new FavouritesChanged());
     }
 
 }
